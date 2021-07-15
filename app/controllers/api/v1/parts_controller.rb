@@ -1,5 +1,5 @@
 class Api::V1::PartsController < ApplicationController
-  before_action :set_part, only: [:show, :update, :destroy]
+  before_action :set_part, only: %i[show update destroy]
 
   # GET /parts
   def index
@@ -39,13 +39,14 @@ class Api::V1::PartsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_part
-      @part = Part.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def part_params
-      params.require(:part).permit(:name, :category_id, :car_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_part
+    @part = Part.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def part_params
+    params.require(:part).permit(:name, :category_id, :car_id)
+  end
 end

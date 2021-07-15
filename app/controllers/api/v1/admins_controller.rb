@@ -1,5 +1,5 @@
 class Api::V1::AdminsController < ApplicationController
-  before_action :set_admin, only: [:show, :update, :destroy]
+  before_action :set_admin, only: %i[show update destroy]
 
   # GET /admins
   def index
@@ -39,13 +39,14 @@ class Api::V1::AdminsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin
-      @admin = Admin.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def admin_params
-      params.require(:admin).permit(:name, :email, :adminID)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin
+    @admin = Admin.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def admin_params
+    params.require(:admin).permit(:name, :email, :adminID)
+  end
 end
