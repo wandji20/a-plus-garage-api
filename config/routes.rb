@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :parts
   resources :categories
   resources :cars
   namespace :api do
