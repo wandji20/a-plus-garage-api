@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
   resources :cars
-  resources :radiator_coolants
-  resources :rear_lights
-  resources :fuel_pumps
-  resources :tyres
-  resources :brakes
-  resources :oil_filters
-  resources :oils
   namespace :api do
     namespace :v1 do
       resources :users

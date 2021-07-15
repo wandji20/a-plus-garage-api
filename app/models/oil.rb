@@ -1,2 +1,0 @@
-class Oil < ApplicationRecord
-end

@@ -1,2 +1,0 @@
-class RearLight < ApplicationRecord
-end

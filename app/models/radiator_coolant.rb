@@ -1,2 +1,0 @@
-class RadiatorCoolant < ApplicationRecord
-end
