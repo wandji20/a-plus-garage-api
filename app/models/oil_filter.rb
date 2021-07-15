@@ -1,0 +1,2 @@
+class OilFilter < ApplicationRecord
+end

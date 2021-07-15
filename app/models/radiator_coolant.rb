@@ -1,0 +1,2 @@
+class RadiatorCoolant < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class Oil < ApplicationRecord
+end

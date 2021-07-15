@@ -1,0 +1,2 @@
+class FuelPump < ApplicationRecord
+end

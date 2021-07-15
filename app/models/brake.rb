@@ -1,0 +1,2 @@
+class Brake < ApplicationRecord
+end
