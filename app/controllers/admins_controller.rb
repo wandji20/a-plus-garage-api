@@ -1,4 +1,4 @@
-class Api::V1::AdminsController < ApplicationController
+class AdminsController < ApplicationController
   before_action :set_admin, only: %i[show update destroy]
 
   # GET /admins

@@ -1,4 +1,4 @@
-class Api::V1::PartsController < ApplicationController
+class PartsController < ApplicationController
   before_action :set_part, only: %i[show update destroy]
 
   # GET /parts

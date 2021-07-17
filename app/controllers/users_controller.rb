@@ -1,4 +1,4 @@
-class Api::V1::UsersController < ApplicationController
+class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
   # GET /users
@@ -39,6 +39,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
+
+  def session_params
+    params.require(:user).permit(:userID)
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
