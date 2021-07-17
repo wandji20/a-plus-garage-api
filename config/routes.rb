@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   post '/login',    to: 'sessions#create'
   get '/logout',   to: 'sessions#destroy'
-  get '/logged_in', to: 'sessions#is_logged_in?'
+  get '/logged_in', to: 'sessions#logged_in?'
 
-  resources :users do
-    resources :cars
+  resources :users only: [:create, :show] do
+    resources :cars only: [:create, :show, :update, :destroy]
   end
-  resources :parts
-  resources :categories
-  resources :admins
+  resources :parts only: [:index, :create, :update, :destroy]
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # resources :categories
+  # resources :admins
+
 end

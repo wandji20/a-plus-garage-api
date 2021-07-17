@@ -1,30 +1,40 @@
 class CarsController < ApplicationController
   before_action :set_car, only: %i[show update destroy]
 
-  # GET /cars
-  def index
-    @cars = Car.all
-
-    render json: @cars
-  end
-
-  # GET /cars/1
   def show
     render json: @car
   end
 
-  # POST /cars
   def create
     @car = Car.new(car_params)
+    @parts = [
+      Part.new(name: 'Oil'),
+      Part.new(name: 'Oil Filter'),
+      Part.new(name: 'Brakes Lining'),
+      Part.new(name: 'Tyres'),
+      Part.new(name: 'Rear Lights'),
+      Part.new(name: 'Fuel Pump')
+    ]
 
     if @car.save
-      render json: @car, status: :created, location: @car
+      # @parts.each do |part|
+      #   @car.part.build()
+      #   part.save if part.valid?
+      # end
+      render json: {
+        success: true,
+        data: {
+          car: @car.as_json(only: [:name], include: [:parts])
+        }
+      }
     else
-      render json: @car.errors, status: :unprocessable_entity
+      render json: {
+        success: false,
+        errors: @car.errors
+      }, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /cars/1
   def update
     if @car.update(car_params)
       render json: @car

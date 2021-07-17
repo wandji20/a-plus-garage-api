@@ -24,31 +24,31 @@ RSpec.describe '/admins', type: :request do
       it 'creates a new Admin' do
         expect do
           post 'http://localhost:3001/api/v1/admins',
-          params: { 
-            admin: { 
-              name: 'ahmed', 
-              email: "@email.com", 
-              adminID: '@ahmedsssss', 
-            } 
-          }, as: :json
-        end.
-        to change(Admin, :count).by(1)
- 
+               params: {
+                 admin: {
+                   name: 'ahmed',
+                   email: '@email.com',
+                   adminID: '@ahmedsssss'
+                 }
+               }, as: :json
+        end
+          .to change(Admin, :count).by(1)
       end
     end
     context 'with invalid parameters' do
       it 'does not create a new User' do
         expect do
           post 'http://localhost:3001/api/v1/admins',
-               params: { 
-                  admin: {
-                    name: 'ahmed', 
-                    adminID: '@ahd', 
-                    email: "@email.com",  
-                    password: "111" } 
-                }, as: :json
-        end.
-        to change(Admin, :count).by(0)
+               params: {
+                 admin: {
+                   name: 'ahmed',
+                   adminID: '@ahd',
+                   email: '@email.com',
+                   password: '111'
+                 }
+               }, as: :json
+        end
+          .to change(Admin, :count).by(0)
       end
     end
   end

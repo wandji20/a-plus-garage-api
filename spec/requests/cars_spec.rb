@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe '/cars', type: :request do
   fixtures :cars, :users
 
-  describe "GET /index" do
-    it "renders a successful response" do
+  describe 'GET /index' do
+    it 'renders a successful response' do
       get 'http://localhost:3001/api/v1/users/1/cars', as: :json
       json_response = JSON.parse(response.body)
       expect(json_response.length).to be(1)
@@ -15,10 +15,10 @@ RSpec.describe '/cars', type: :request do
     context 'with valid parameters' do
       it 'creates a new Car' do
         # expect do
-          post 'http://localhost:3001/api/v1/users/2/cars',
-               params: { car: { make: 'Camry', fuel_rate: 60 , horse_power: 9, user_id:2 } }, as: :json
-          json_response = JSON.parse(response.body)
-          expect(json_response).to be(1)
+        post 'http://localhost:3001/api/v1/users/2/cars',
+             params: { car: { make: 'Camry', fuel_rate: 60, horse_power: 9, user_id: 2 } }, as: :json
+        json_response = JSON.parse(response.body)
+        expect(json_response).to be(1)
         # end.to change(Car, :count).by(1)
         expect
       end
