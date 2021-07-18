@@ -19,32 +19,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  def logged_in?
-    if logged_in? && current_user
-      render json: {
-        logged_in: true,
-        user: current_user.as_json(only: [:name])
-      }
-    else
-      render json: {
-        logged_in: false,
-        message: 'no such user'
-      }
-    end
-    render json: {
-      logged_in: false,
-      message: 'no such user login to create account'
-    }
-  end
-
-  def destroy
-    logout!
-    render json: {
-      status: 200,
-      logged_out: true
-    }
-  end
-
   private
 
   def session_params

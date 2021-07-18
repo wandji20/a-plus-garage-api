@@ -43,19 +43,16 @@ class CarsController < ApplicationController
     end
   end
 
-  # DELETE /cars/1
   def destroy
     @car.destroy
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_car
     @car = Car.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def car_params
     params.require(:car).permit(:make, :fuel_rate, :horse_power)
   end

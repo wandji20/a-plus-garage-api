@@ -14,7 +14,7 @@ class UsersController < ApplicationController
         success: true,
         data: {
           logged_in: true,
-          user: @user.as_json(only: [:name], include: [:cars])
+          user: @user.as_json(only: [:id, :name], include: [:cars])
         }
       }, status: :created, location: @user
     else
