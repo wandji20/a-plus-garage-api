@@ -10,53 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_144339) do
+ActiveRecord::Schema.define(version: 0) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "adminID"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "cars", force: :cascade do |t|
-    t.string "make"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "fuel_rate"
-    t.integer "horse_power"
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_cars_on_user_id"
-  end
-
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "parts", force: :cascade do |t|
-    t.string "name"
-    t.bigint "category_id", null: false
-    t.bigint "car_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["car_id"], name: "index_parts_on_car_id"
-    t.index ["category_id"], name: "index_parts_on_category_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "userID"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  add_foreign_key "cars", "users"
-  add_foreign_key "parts", "cars"
-  add_foreign_key "parts", "categories"
 end

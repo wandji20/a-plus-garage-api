@@ -1,26 +1,16 @@
 class CarsController < ApplicationController
   before_action :set_car, only: %i[show update destroy]
-
+  before_create :create_parts
+  
   def show
     render json: @car
   end
 
   def create
-    @car = Car.new(car_params)
-    @parts = [
-      Part.new(name: 'Oil'),
-      Part.new(name: 'Oil Filter'),
-      Part.new(name: 'Brakes Lining'),
-      Part.new(name: 'Tyres'),
-      Part.new(name: 'Rear Lights'),
-      Part.new(name: 'Fuel Pump')
-    ]
+    @user = User.find(params[:user_id])
+    @car = @user.cars.build(car_params)
 
-    if @car.save
-      # @parts.each do |part|
-      #   @car.part.build()
-      #   part.save if part.valid?
-      # end
+    if (@car.parts.length === 8 && @car.save)
       render json: {
         success: true,
         data: {
@@ -54,6 +44,14 @@ class CarsController < ApplicationController
   end
 
   def car_params
-    params.require(:car).permit(:make, :fuel_rate, :horse_power)
+    params.require(:car).permit(:make, :fuel_rate, :horse_power, :parts);
+  end
+
+  def create_parts
+    @parts = params[:parts]
+    @parts.each do |part|
+      @part = self.parts.build(name: part.name, life: part.life)
+      @part.save
+    end
   end
 end

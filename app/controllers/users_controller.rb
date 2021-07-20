@@ -9,12 +9,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      login!
       render json: {
         success: true,
         data: {
           logged_in: true,
-          user: @user.as_json(only: [:id, :name], include: [:cars])
+          user: @user.as_json(only: %i[id name], include: [:cars])
         }
       }, status: :created, location: @user
     else
@@ -22,6 +21,25 @@ class UsersController < ApplicationController
         success: false,
         errors: @user.errors
       }, status: :unprocessable_entity
+    end
+  end
+
+  def login
+    @user = User.find_by(params[:userID]))
+
+    if @user
+      render json: {
+        success: true,
+        data: {
+          logged_in: true,
+          user: @user.as_json(only: [:name], include: [:cars])
+        }
+      }
+    else
+      render json: {
+        success: false,
+        errors: ['no such user, please try again']
+      }
     end
   end
 
