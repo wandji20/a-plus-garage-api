@@ -1,8 +1,8 @@
 class Car < ApplicationRecord
   belongs_to :user
-  has_many :parts
+  has_many :parts, dependent: :destroy
 
   validates :make, presence: true, length: { in: (3..10) }
-  validates :fuel_rate, presence: true
-  validates :horse_power, presence: true
+  validates :fuel, presence: true
+  validates :power, presence: true
 end

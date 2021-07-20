@@ -1,7 +1,6 @@
 class CarsController < ApplicationController
   before_action :set_car, only: %i[show update destroy]
-  before_create :create_parts
-  
+
   def show
     render json: @car
   end
@@ -9,12 +8,20 @@ class CarsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @car = @user.cars.build(car_params)
+    
+    @parts = params[:parts]
 
-    if (@car.parts.length === 8 && @car.save)
+    if @car.save
+
+      @parts.each do |part|
+        @part = @car.parts.new(name: part[:name], life: part[:life])
+        @part.save if @part.valid?
+      end
+
       render json: {
         success: true,
         data: {
-          car: @car.as_json(only: [:name], include: [:parts])
+          car: @car.as_json(only: %i[name fuel power], include: [:parts])
         }
       }
     else
@@ -44,14 +51,6 @@ class CarsController < ApplicationController
   end
 
   def car_params
-    params.require(:car).permit(:make, :fuel_rate, :horse_power, :parts);
-  end
-
-  def create_parts
-    @parts = params[:parts]
-    @parts.each do |part|
-      @part = self.parts.build(name: part.name, life: part.life)
-      @part.save
-    end
+    params.require(:car).permit(:make, :fuel, :power, :parts, :user_id)
   end
 end
