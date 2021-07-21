@@ -14,7 +14,7 @@ class CarsController < ApplicationController
     if @car.save
 
       @parts.each do |part|
-        @part = @car.parts.new(name: part[:name], life: part[:life])
+        @part = @car.parts.new(name: part[:name], life: part[:life], count:1)
         @part.save if @part.valid?
       end
 
