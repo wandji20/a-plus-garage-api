@@ -2,19 +2,22 @@ class CarsController < ApplicationController
   before_action :set_car, only: %i[show update destroy]
 
   def show
-    render json: @car
+    render json: {
+      success: true,
+      data: @car.as_json(only: %i[make power fuel], include: [:parts])
+    }
   end
 
   def create
     @user = User.find(params[:user_id])
     @car = @user.cars.build(car_params)
-    
+
     @parts = params[:parts]
 
     if @car.save
 
       @parts.each do |part|
-        @part = @car.parts.new(name: part[:name], life: part[:life], count:1)
+        @part = @car.parts.new(name: part[:name], life: part[:life], count: 1)
         @part.save if @part.valid?
       end
 

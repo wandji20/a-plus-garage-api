@@ -13,7 +13,7 @@ class UsersController < ApplicationController
         success: true,
         data: {
           logged_in: true,
-          user: @user.as_json(only: %i[userID name], include: [:cars])
+          user: @user.as_json(only: %i[userID name, id], include: [:cars])
         }
       }, status: :created, location: @user
     else
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
         success: true,
         data: {
           logged_in: true,
-          user: @user.as_json(only: %i[name userID], include: [:cars])
+          user: @user.as_json(only: %i[name userID id], include: [:cars])
         }
       }
     else
@@ -50,6 +50,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :userID)
+    params.require(:user).permit(:name, :userID, :id)
   end
 end
