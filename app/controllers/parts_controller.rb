@@ -25,12 +25,12 @@ class PartsController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:user_id]);
-    if @part.update(count: params[:count]);
+    @user = User.find(params[:user_id])
+    if @user && @part.update(count: params[:count])
       render json: {
         success: true,
         part: @part
-      }, status: :created, location: user_car_part_path(@part)
+      }, status: :created
     else
       render json: {
         success: false,

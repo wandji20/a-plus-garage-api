@@ -6,7 +6,6 @@ RSpec.describe '/cars', type: :request do
   describe 'GET /show' do
     it 'renders a successful response' do
       get 'http://localhost:3001/users/1/cars/1', as: :json
-      json_response = JSON.parse(response.body)
       expect(response).to have_http_status(200)
     end
   end
@@ -15,8 +14,7 @@ RSpec.describe '/cars', type: :request do
     context 'with valid parameters' do
       it 'creates a new Car' do
         post 'http://localhost:3001/users/1/cars',
-             params: { car: { make: 'Camry', fuel: 60, power: 9, user_id: 1 }, user_id:1, parts: [] }, as: :json
-        json_response = JSON.parse(response.body)
+             params: { car: { make: 'Camry', fuel: 60, power: 9, user_id: 1 }, user_id: 1, parts: [] }, as: :json
         expect(response).to have_http_status(200)
       end
     end
@@ -24,7 +22,7 @@ RSpec.describe '/cars', type: :request do
       it 'does not create a new User' do
         expect do
           post 'http://localhost:3001/users/1/cars',
-             params: { car: { make: 'Camry', fuel: 60, }, parts: [] }, as: :json
+               params: { car: { make: 'Camry', fuel: 60 }, parts: [] }, as: :json
         end.to change(User, :count).by(0)
       end
     end

@@ -6,7 +6,7 @@ class CarsController < ApplicationController
       success: true,
       data: {
         car: @car.as_json(only: %i[id make power fuel], include: [:parts])
-      } 
+      }
     }
   end
 
