@@ -41,15 +41,6 @@ RSpec.describe '/parts', type: :request do
       end
     end
 
-    # context "with invalid parameters" do
-    #   it "renders a JSON response with errors for the part" do
-    #     part = Part.create! valid_attributes
-    #     patch part_url(part),
-    #           params: { part: invalid_attributes }, headers: valid_headers, as: :json
-    #     expect(response).to have_http_status(:unprocessable_entity)
-    #     expect(response.content_type).to eq("application/json")
-    #   end
-    # end
   end
 
 end
