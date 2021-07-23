@@ -4,7 +4,9 @@ class CarsController < ApplicationController
   def show
     render json: {
       success: true,
-      data: @car.as_json(only: %i[make power fuel], include: [:parts])
+      data: {
+        car: @car.as_json(only: %i[id make power fuel], include: [:parts])
+      } 
     }
   end
 
@@ -24,7 +26,7 @@ class CarsController < ApplicationController
       render json: {
         success: true,
         data: {
-          car: @car.as_json(only: %i[name fuel power], include: [:parts])
+          car: @car.as_json(only: %i[name fuel power id], include: [:parts])
         }
       }
     else

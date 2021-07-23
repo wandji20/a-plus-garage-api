@@ -4,7 +4,7 @@ class PartsController < ApplicationController
   def show
     render json: {
       success: true,
-      data: @part
+      part: @part
     }
   end
 
@@ -14,8 +14,8 @@ class PartsController < ApplicationController
     if @part.save
       render json: {
         success: true,
-        data: @part
-      }, status: :created, location: @part
+        part: @part
+      }, status: :created
     else
       render json: {
         success: false,
@@ -25,11 +25,12 @@ class PartsController < ApplicationController
   end
 
   def update
-    if @part.update(part_params)
+    @user = User.find(params[:user_id]);
+    if @part.update(count: params[:count]);
       render json: {
         success: true,
-        data: @part
-      }, status: :created, location: @part
+        part: @part
+      }, status: :created, location: user_car_part_path(@part)
     else
       render json: {
         success: false,
@@ -45,6 +46,6 @@ class PartsController < ApplicationController
   end
 
   def part_params
-    params.require(:part).permit(:name, :car_id, :life, :count)
+    params.require(:part).permit(:name, :car_id, :user_id, :life, :count, :id)
   end
 end
