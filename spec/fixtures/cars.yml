@@ -1,6 +1,0 @@
-car1:
-  id: 1
-  make: "Avensis"
-  fuel: 60
-  power: 7
-  user_id: 1
