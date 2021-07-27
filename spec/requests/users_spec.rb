@@ -1,32 +1,43 @@
 require 'rails_helper'
 
-RSpec.describe 'users', type: :request do
-  # fixtures :users
+RSpec.describe 'Users API', type: :request do
+  let(:user) { build(:user) }
+  let(:headers) { valid_headers.except('Authorization') }
+  let(:valid_attributes) do
+    attributes_for(:user, password_confirmation: user.password)
+  end
 
-  # describe 'GET /show' do
-  #   it 'renders a successful response' do
-  #     User.create(name: 'Yohan', userID: '@yohan')
-  #     get 'http://localhost:3001/users/4', as: :json
-  #     expect(response).to be_successful
-  #   end
-  # end
+  # User signup test suite
+  describe 'POST /create' do
+    context 'when valid request' do
+      before { post '/create', params: valid_attributes.to_json, headers: headers }
 
-  # describe 'POST /create' do
-  #   context 'with valid parameters' do
-  #     it 'creates a new User' do
-  #       expect do
-  #         post 'http://localhost:3001/users',
-  #              params: { user: { name: 'moha', userID: 'ahmed' } }, as: :json
-  #       end.to change(User, :count).by(1)
-  #     end
-  #   end
-  #   context 'with invalid parameters' do
-  #     it 'does not create a new User' do
-  #       expect do
-  #         post 'http://localhost:3001/login',
-  #              params: { user: { userID: 'ahmed' } }, as: :json
-  #       end.to change(User, :count).by(0)
-  #     end
-  #   end
-  # end
+      # it 'creates a new user' do
+      #   expect(response).to have_http_status(201)
+      # end
+
+      # it 'returns success message' do
+      #   expect(json['message']).to match(/Account created successfully/)
+      # end
+
+      # it 'returns an authentication token' do
+      #   expect(json['auth_token']).not_to be_nil
+      # end
+    end
+
+    context 'when invalid request' do
+      before { post '/create', params: {}, headers: headers }
+
+      # it 'does not create a new user' do
+      #   expect(response).to have_http_status(422)
+      # end
+
+      # it 'returns failure message' do
+      #   expect(json['message'])
+      #     .to match(
+      #       /Validation failed: Password can't be blank, Name can't be blank, Email can't be blank, Password digest can't be blank, userID can't be blank/
+      #     )
+      # end
+    end
+  end
 end

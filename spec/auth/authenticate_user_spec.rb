@@ -4,17 +4,19 @@ RSpec.describe AuthenticateUser do
   # create test user
   let(:user) { create(:user) }
   # valid request subject
-  subject(:valid_auth_obj) { described_class.new(user.userID, user.password) }
+  subject(:valid_auth_obj) { described_class.new(user.user_name, user.password) }
   # invalid request subject
   subject(:invalid_auth_obj) { described_class.new('foo', 'bar') }
 
   # Test suite for AuthenticateUser#call
   describe '#call' do
     # return token when valid request
+    # host! "test.domain"
     context 'when valid credentials' do
       it 'returns an auth token' do
-        token = valid_auth_obj.call
+        token = valid_auth_obj.call()
         expect(token).not_to be_nil
+        # expect(valid_auth_obj).to be_nil
       end
     end
 
