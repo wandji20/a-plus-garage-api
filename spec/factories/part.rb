@@ -4,6 +4,6 @@ FactoryBot.define do
     name { 'Oil' }
     life { 3 }
     count { 1 }
-    car_id { 1 }
+    car_id { Faker::Number.unique }
   end
 end
