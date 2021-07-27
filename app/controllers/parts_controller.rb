@@ -3,7 +3,6 @@ class PartsController < ApplicationController
 
   def show
     render json: {
-      success: true,
       part: @part
     }
   end
@@ -13,27 +12,22 @@ class PartsController < ApplicationController
 
     if @part.save
       render json: {
-        success: true,
         part: @part
       }, status: :created
     else
       render json: {
-        success: false,
         error: @part.errors
       }, status: :unprocessable_entity
     end
   end
 
   def update
-    @user = User.find(params[:user_id])
-    if @user && @part.update(count: params[:count])
+    if @part.update(count: params[:count])
       render json: {
-        success: true,
         part: @part
       }, status: :created
     else
       render json: {
-        success: false,
         error: @part.errors
       }, status: :unprocessable_entity
     end
@@ -46,6 +40,6 @@ class PartsController < ApplicationController
   end
 
   def part_params
-    params.require(:part).permit(:name, :car_id, :user_id, :life, :count, :id)
+    params.require(:part).permit(:name, :car_id, :life, :count, :id)
   end
 end
