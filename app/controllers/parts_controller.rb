@@ -1,5 +1,5 @@
 class PartsController < ApplicationController
-  before_action :set_part, only: %i[show update destroy]
+  before_action :set_part, only: %i[show destroy]
 
   def show
     render json: {
@@ -12,7 +12,7 @@ class PartsController < ApplicationController
 
     if @part.save
       render json: {
-        part: @part
+        part: @part.as_json
       }, status: :created
     else
       render json: {
@@ -22,9 +22,10 @@ class PartsController < ApplicationController
   end
 
   def update
-    if @part.update(count: params[:count])
+    @part = Part.find(params[:id])
+    if @part.update(part_params)
       render json: {
-        part: @part
+        part: @part.as_json
       }, status: :created
     else
       render json: {
@@ -36,7 +37,7 @@ class PartsController < ApplicationController
   private
 
   def set_part
-    @part = Part.find(params[:id])
+    @part = Part.find(part_params)
   end
 
   def part_params

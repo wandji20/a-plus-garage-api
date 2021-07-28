@@ -1,37 +1,9 @@
 class CarsController < ApplicationController
   before_action :set_car, only: %i[show update destroy]
 
-  # def create
-  #   @user = User.find(params[:user_id])
-  #   @car = @user.cars.build(car_params)
-
-  #   @parts = params[:parts]
-
-  #   if @car.save
-
-  #     @parts.each do |part|
-  #       @part = @car.parts.new(name: part[:name], life: part[:life], count: 1)
-  #       @part.save if @part.valid?
-  #     end
-
-  #     render json: {
-  #       success: true,
-  #       data: {
-  #         car: @car.as_json(only: %i[name fuel power id], include: [:parts])
-  #       }
-  #     }
-  #   else
-  #     render json: {
-  #       success: false,
-  #       errors: @car.errors
-  #     }, status: :unprocessable_entity
-  #   end
-  # end
-
   def index
-    # get current user todos
     @cars = current_user.cars
-    # json_response(@cars)
+
     render json: {
       cars: @cars.as_json(only: %i[id make power fuel], include: [:parts])
     }
@@ -42,7 +14,7 @@ class CarsController < ApplicationController
 
     render json: {
       car: @car.as_json(only: %i[id make power fuel], include: [:parts])
-    }
+    }, status: :created
   end
 
   def show
@@ -61,6 +33,7 @@ class CarsController < ApplicationController
   end
 
   def destroy
+    @car = Car.find(params[:id])
     @car.destroy
   end
 

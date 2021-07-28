@@ -7,7 +7,6 @@ RSpec.describe 'Users API', type: :request do
     attributes_for(:user, password_confirmation: user.password)
   end
 
-  # User signup test suite
   describe 'POST /create' do
     context 'when valid request' do
       before { post 'http://localhost:3001/signup', params: valid_attributes.to_json, headers: headers }
