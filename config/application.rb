@@ -24,12 +24,12 @@ module APlusGarageApi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
-      end
-    end
+    # config.middleware.insert_before 0, Rack::Cors do
+    #   allow do
+    #     origins '*'
+    #     resource '*', headers: :any, methods: [:get, :post, :options]
+    #   end
+    # end
 
     # Configuration for the application, engines, and railties goes here.
     #
