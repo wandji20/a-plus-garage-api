@@ -10,6 +10,6 @@ class AuthenticationController < ApplicationController
   private
 
   def auth_params
-    params.permit(:user_name, :password)
+    params.require(:authentication).permit(:user_name, :password)
   end
 end
