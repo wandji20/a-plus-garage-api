@@ -23,7 +23,7 @@ class PartsController < ApplicationController
 
   def update
     @part = Part.find(params[:id])
-    if @part.update(part_params)
+    if @part.update(count: params[:count])
       render json: {
         part: @part.as_json
       }, status: :created
