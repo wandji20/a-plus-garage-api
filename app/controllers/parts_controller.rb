@@ -22,7 +22,7 @@ class PartsController < ApplicationController
   end
 
   def update
-    if @part.update(count: params[:count])
+    if @part.update(part_params)
       render json: {
         part: @part.as_json
       }, status: :created
