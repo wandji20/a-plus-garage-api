@@ -6,7 +6,7 @@ class CarsController < ApplicationController
 
     render json: {
       parts: user_cars,
-      cars: @cars.as_json(only: %i[id make power fuel])
+      cars: @cars.order(created_at: :asc).as_json(only: %i[id make power fuel])
     }
   end
 
