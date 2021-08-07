@@ -5,7 +5,8 @@ class CarsController < ApplicationController
     @cars = current_user.cars
 
     render json: {
-      cars: @cars.as_json(only: %i[id make power fuel], include: [:parts])
+      parts: user_cars,
+      cars: @cars.as_json(only: %i[id make power fuel])
     }
   end
 
@@ -45,5 +46,10 @@ class CarsController < ApplicationController
 
   def car_params
     params.require(:car).permit(:make, :fuel, :power, :user_id, :id, parts_attributes: %i[name life count])
+  end
+
+  def user_cars
+    @car_ids = current_user.cars.pluck(:id)
+    @parts = Part.where(car_id: @car_ids)
   end
 end
