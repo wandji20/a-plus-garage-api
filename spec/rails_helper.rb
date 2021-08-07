@@ -2,8 +2,8 @@
 require 'spec_helper'
 
 require 'shoulda/matchers'
-require 'database_cleaner'
 
+# Rails.env = 'test'
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../config/environment', __dir__)
@@ -70,17 +70,6 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  # start the transaction strategy as examples are run
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
-  end
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
