@@ -4,7 +4,7 @@ class Car < ApplicationRecord
 
   accepts_nested_attributes_for :parts, reject_if: :all_blank, allow_destroy: true
 
-  validates :make, presence: true, length: { in: (3..10) }
+  validates :make, presence: true, length: { in: (3..100) }
   validates :fuel, presence: true
   validates :power, presence: true
 end
